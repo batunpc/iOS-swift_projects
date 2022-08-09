@@ -21,7 +21,6 @@ class ViewController: UIViewController {
     var items:[Person]?
     
     override func viewDidLoad() {
-
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.tableView.delegate = self
@@ -43,7 +42,7 @@ class ViewController: UIViewController {
             print("Error at fetching \(error)")
         }
     }
-
+    //MARK: To create the user
     @IBAction func addTapped(_ sender: Any) {
         //Create alert
         let alert = UIAlertController(title: "Add Person", message: "What is their name?", preferredStyle: .alert)
@@ -55,7 +54,6 @@ class ViewController: UIViewController {
             
             //Create a person object
             let newPerson = Person(context: self.appDelegate)
-            
             newPerson.name = textField.text
             newPerson.age = 20
             newPerson.gender = "Male"
@@ -67,7 +65,7 @@ class ViewController: UIViewController {
             catch {
                 print("Err:\(error)")
             }
-            // Re=fetch the data
+            // Re-fetch the data
             self.fetchPeople()
         }
         // Add button to the alert
@@ -75,8 +73,6 @@ class ViewController: UIViewController {
         
         //Show alert
         self.present(alert, animated: true, completion: nil)
-        
-        
     }
 }
 
@@ -84,14 +80,13 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return number of people
-        
         return self.items?.count ?? 0
         
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
         let person = self.items![indexPath.row]
         var content = cell.defaultContentConfiguration()
         content.text = person.name
@@ -100,8 +95,8 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
+    //MARK: To delete user
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
         //Create swipe action
         let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             //Which person to remove
@@ -115,12 +110,45 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource{
             catch{
                 print("Error:\(error)")
             }
-            
             //Re-fetch the data
             self.fetchPeople()
         }
         //Return swipe actions
         return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    //MARK: To update user
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //Selected person
+        let person = self.items![indexPath.row]
+        //Create alert
+        let alert = UIAlertController(title: "Edit Person", message: "Edit name:", preferredStyle: .alert)
+        alert.addTextField()
+        
+        let textField = alert.textFields![0]
+        textField.text = person.name
+        
+        //Configure button handler
+        let saveButton = UIAlertAction(title: "Save ", style: .default) { action in
+            //Get the textfield for the alert
+            let textField = alert.textFields![0]
+            // Edit name property of person object
+            person.name = textField.text
+            // Save the data
+            do{
+               try self.appDelegate.save()
+            }
+            catch{
+                print("Err at saving the data: \(error)")
+            }
+            //refresh
+            self.fetchPeople()
+        }
+        //add the save button
+        alert.addAction(saveButton)
+        self.present(alert, animated: true, completion: nil)
+        
+        
     }
 
 }
