@@ -66,7 +66,8 @@ class ViewController: UIViewController {
                 print("Err:\(error)")
             }
             // Re-fetch the data
-            self.fetchPeople()
+            //self.fetchPeople()
+            self.tableView.insertRows(at: [IndexPath(row: self.items!.count - 1 , section: 0)], with: .fade)
         }
         // Add button to the alert
         alert.addAction(submitButton)
