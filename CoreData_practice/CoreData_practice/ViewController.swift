@@ -67,7 +67,9 @@ class ViewController: UIViewController {
             }
             // Re-fetch the data
             //self.fetchPeople()
-            self.tableView.insertRows(at: [IndexPath(row: self.items!.count - 1 , section: 0)], with: .fade)
+            // do the append method below when you only have to inster single object.Hence, there,s no need to call heavy tasks such as fetch
+            self.items?.append(newPerson)
+            self.tableView.insertRows(at: [IndexPath(row: (self.items!.count - 1), section: 0)], with: UITableView.RowAnimation.fade)
         }
         // Add button to the alert
         alert.addAction(submitButton)
