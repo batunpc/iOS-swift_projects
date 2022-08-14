@@ -33,7 +33,11 @@ class ViewController: UIViewController {
     func fetchPeople(){
         //fetch data from Core Data to display in the tableview
         do{
-            self.items = try appDelegate.fetch(Person.fetchRequest())
+            let request = Person.fetchRequest() as NSFetchRequest<Person>
+            // set the filtering and sorting on the request
+            let predicate = NSPredicate(format: "name CONTAINS %@", "Ted")
+            request.predicate = predicate
+            self.items = try appDelegate.fetch(request)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -51,7 +55,6 @@ class ViewController: UIViewController {
         let submitButton = UIAlertAction(title: "Add", style: .default){ (action) in
             //Get the textfield for the alert
             let textField = alert.textFields![0]
-            
             //Create a person object
             let newPerson = Person(context: self.appDelegate)
             newPerson.name = textField.text

@@ -34,27 +34,7 @@ class Service{
             }
         }
         task.resume()
-//            if let data = data , let roverResults = try? JSONDecoder().decode(RoverAPIResult.self, from: data){
-//                    complition(roverResults)
-            
-//            guard let data = data, error == nil else {return }
-//            var result : RoverAPIResult?
-//
-//            do {
-//                result = try JSONDecoder().decode(RoverAPIResult.self, from: data)
-//
-//            }
-//            catch {
-//                print("Failed to decode with error: \(error)")
-//            }
-//
-//            guard let final = result else {
-//                return
-//            }
-//
-//            complition(final)
-//
-            //check errors
+
      
     }
         
