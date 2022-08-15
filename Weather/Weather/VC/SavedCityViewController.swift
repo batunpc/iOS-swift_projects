@@ -31,7 +31,6 @@ class SavedCityViewController: UIViewController {
             print("going")
         }
     }
-    
     //fetch data from Core Data to display in the tableview
     func fetchPeople(){
         do{
