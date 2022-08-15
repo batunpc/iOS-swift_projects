@@ -51,27 +51,23 @@ extension AddCityViewController : UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
 
         if let searchText = searchController.searchBar.text {
-            let url = URLState.geobytes(searchText).stringValue
-                ServiceManager.searchCity(from: url) { result in
-                    switch result {
-                    case.failure(let error):
-                        print(error)
-                    case.success(let data):
-                        let decoder = JSONDecoder()
-                        if let searchResults = try? decoder.decode([String].self, from: data){
-                            self.cityList = searchResults
-                            print(searchResults)
-                    }
-                }
+            guard let safeUrl = URL(string: URLState.geobytes(searchText).APIString) else { return }
+
+            guard searchText.count >= 3 else {
+                cityList.removeAll()
+                cityTable.reloadData()
+                return
             }
-        }
-    }
-}
-extension AddCityViewController : UISearchBarDelegate{
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchController.isActive = false
-        if let searchText = searchBar.text{
             
+            _ = ServiceManager.searchForCity(url: safeUrl) { cities, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                
+                self.cityList = cities ?? [""]
+                self.cityTable.reloadData()
+            }
         }
     }
 }

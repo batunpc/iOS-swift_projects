@@ -10,13 +10,13 @@ import Foundation
 struct ServiceManager {
     
     static let apiKey = "0f901c372f0e27b552215df39c513892"
-    static let weatherURL = "https://api.openweathermap.org/data/2.5/weather?&units=metric&appid=\(apiKey)&units=metric"
+    static let weatherURL = "https://api.openweathermap.org/data/2.5/weather?&units=metric&appid=\(apiKey)"
     static let geobytesURL = "http://gd.geobytes.com/AutoCompleteCity"
     
     
     func fetchWeatherData(from cityName: String){
         let url = URLState.openweather(cityName)
-        performRequest(urlString: url.stringValue)
+        performRequest(urlString: url.APIString)
     }
     
     func performRequest(urlString:String){
@@ -41,31 +41,40 @@ struct ServiceManager {
     }
     
     // MARK: Geobytes autocomplete city API
-    static func searchCity(from url: String, completionHandler: @escaping (Result<Data, URLError>) -> Void) {
-        guard let safeURL = URL(string: url) else {return}
-        let task = URLSession.shared.dataTask(with: safeURL) { data, response, error in
-            if let urlError = error as? URLError {
+    static func searchForCity(url: URL, completion: @escaping ([String]?, Error?) -> Void) -> URLSessionTask {
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
                 DispatchQueue.main.async {
-                    completionHandler(.failure(urlError))
+                    completion([], error)
                 }
-                
+                return
             }
-            if let data = data {
-                DispatchQueue.main.async {
-                    completionHandler(.success(data))
+            let safeData = String(data: data, encoding: .utf8)
+            if let convertedData = safeData?.data(using: .utf8) {
+                do {
+                    let response = try JSONDecoder().decode([String].self, from: convertedData)
+                    DispatchQueue.main.async {
+                        completion(response, nil)
+                    }
+                }
+                catch {
+                    DispatchQueue.main.async {
+                        completion([], error)
+                    }
                 }
             }
-          }
+        }
         task.resume()
+        return task
     }
 
 }
+
 enum URLState{
-    
     case geobytes(String)
     case openweather(String)
     
-    var stringValue: String{
+    var APIString: String{
         switch self {
         case .geobytes(let city):
             return ServiceManager.geobytesURL + "?q=\(city)"
@@ -74,5 +83,6 @@ enum URLState{
             
         }
     }
+
     
 }
