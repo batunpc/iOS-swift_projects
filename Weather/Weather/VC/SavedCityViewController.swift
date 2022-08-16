@@ -9,7 +9,9 @@ import UIKit
 import CoreData
 
 class SavedCityViewController: UIViewController  {
-  
+
+    var city: City!
+
     let searchController = UISearchController()
     @IBOutlet weak var savedCitiesTable: UITableView!
 
@@ -18,9 +20,12 @@ class SavedCityViewController: UIViewController  {
     //let fetchedResultsController:NSFetchedResultsController<City>!
     lazy var weatherResultSet = [WeatherModel](){
         didSet{
-            savedCitiesTable.reloadData()
+            DispatchQueue.main.async {
+                self.savedCitiesTable.reloadData()
+            }
         }
     }
+    
     // CoreData
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var fetchedResultsController: NSFetchedResultsController<City>!
@@ -41,28 +46,37 @@ class SavedCityViewController: UIViewController  {
             print("The fetch could not be performed: \(error.localizedDescription)")
         }
     }
-    
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        ServiceManager.getWeatherData(with: URLState.openweather(city.city_name ?? "").APIString) { data in
+//            self.weatherResultSet = [data]
+//            city.city_temp = data.temperature
+//            city.icon = data.icon
+//        }
+        //self.citySelected(data: <#T##String#>)
+      
         savedCitiesTable.delegate = self
         savedCitiesTable.dataSource = self
         // searchController parameters setup
         //searchController.searchResultsUpdater = self
+        
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search saved city"
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
         setUpFetchedResultsController()
-        //ServiceManager.getWeatherData(with: URLState.openweather(), complition: <#T##(WeatherModel) -> ()#>)
+  
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         setUpFetchedResultsController()
-        
         //searchView.text = ""
         savedCitiesTable.reloadData()
     }
@@ -73,33 +87,68 @@ class SavedCityViewController: UIViewController  {
             searchVC?.context = context
         }
     }
-
 }
+
 
 
 // MARK: - Table view data source
 extension SavedCityViewController: UITableViewDelegate, UITableViewDataSource{
 
     func numberOfSections(in tableView: UITableView) -> Int {
+        //print("asdfsdfasdfDSAFASDF",weatherResultSet)
         return fetchedResultsController.sections?.count ?? 1
+        //return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+        //return weatherResultSet.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "savedCityCell", for: indexPath) as!
             WeatherImgTableViewCell
+    
         let city = fetchedResultsController.object(at: indexPath)
         cell.cityNameLbl.text = city.city_name
-        print(city.city_temp)
-        print(city.city_name)
-        print(city.icon)
+        cell.cityTempLbl.text = String(city.city_temp)
         
+        print("TEMPERATURE", String(city.city_temp))
+        
+        print("ICON:::::::",city.icon ?? "")
+        //print("ICON:::::::",urlString)
+        
+
+        if let url = URL(string: "http://openweathermap.org/img/wn/\(city.icon ?? "")@2x.png") {
+            let task = URLSession.shared.dataTask(with: url) { (data, urlResponse, error) in
+
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                if let data = data {
+                    DispatchQueue.main.async {
+                        cell.weatherImg.image = UIImage(data: data)
+                    }
+                }
+            }
+            task.resume()
+
+        }
+        //cell.cityTempLbl.text = city.city_temp
+
         return cell
     }
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "savedCityCell", for: indexPath) as!
+//            WeatherImgTableViewCell
+//
+//        let city = fetchedResultsController.object(at: indexPath)
+//        let iconID = weatherResultSet[indexPath.row].icon
+//
+//
+
+        
 }
+
 
 // MARK: Extension for FetchedResultsControllerDelegate methods to automatically track and update the UI
 extension SavedCityViewController: NSFetchedResultsControllerDelegate {

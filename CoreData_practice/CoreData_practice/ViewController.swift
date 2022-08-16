@@ -35,6 +35,7 @@ class ViewController: UIViewController {
         do{
     
             let request = Person.fetchRequest() as NSFetchRequest<Person>
+            
             // set the filtering and sorting on the request
             let predicate = NSPredicate(format: "name CONTAINS %@", "Ted")
             request.predicate = predicate

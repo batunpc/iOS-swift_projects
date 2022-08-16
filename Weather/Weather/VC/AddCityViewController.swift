@@ -67,12 +67,18 @@ class AddCityViewController: UIViewController, NSFetchedResultsControllerDelegat
     func addCity(component: String) {
         
         let city = City(context: context)
-        // separate city name from province and country in the response string
-        city.city_name = component.components(separatedBy: ",")[0]
-        do{
-            try self.context.save()
-        }catch {
-            print("Err:\(error.localizedDescription)")
+        //get data from openweatherAPI
+        city.city_name = component.components(separatedBy: ",")[0] // name
+        ServiceManager.getWeatherData(with: URLState.openweather(city.city_name!).APIString) { data in
+            city.city_temp = data.temperature //temp
+            city.icon = data.icon // icon
+            //
+
+            do{
+                try self.context.save() //saving to the coredata
+            }catch {
+                print("Err:\(error.localizedDescription)")
+            }
         }
     }
 }
@@ -109,7 +115,7 @@ extension AddCityViewController: TableCityDelegate {
    
         let cityName = data.components(separatedBy: ",")[0]
         title = cityName
-        addCity(component: cityName)
+        addCity(component: data)
         
         searchController.isActive = false
     }
