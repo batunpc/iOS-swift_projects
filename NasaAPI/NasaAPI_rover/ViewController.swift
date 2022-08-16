@@ -48,9 +48,13 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource{
         
         if let url = URL(string: urlString) {
             let task = URLSession.shared.dataTask(with: url) { (data, urlResponse, error) in
-                    if let data = data {
-                        DispatchQueue.main.async {
-                            cell.rImage.image = UIImage(data: data)
+                
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                if let data = data {
+                    DispatchQueue.main.async {
+                        cell.rImage.image = UIImage(data: data)
                     }
                 }
             }

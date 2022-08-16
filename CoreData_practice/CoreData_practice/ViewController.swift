@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     func fetchPeople(){
         //fetch data from Core Data to display in the tableview
         do{
+    
             let request = Person.fetchRequest() as NSFetchRequest<Person>
             // set the filtering and sorting on the request
             let predicate = NSPredicate(format: "name CONTAINS %@", "Ted")

@@ -10,3 +10,9 @@ import Foundation
 protocol TableCityDelegate:AnyObject {
     func citySelected(data : String)
 }
+
+protocol ServiceManagerDelegate {
+    //func didUpdateWeather(weather: WeatherModel)
+    func didTaskFail(error: Error)
+}
+
