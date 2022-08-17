@@ -51,16 +51,17 @@ class SavedCityViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
         savedCitiesTable.delegate = self
         savedCitiesTable.dataSource = self
-        
+        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search saved city"
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
         fetchSavedCityResults()
-        savedCitiesTable.reloadData()
+        //savedCitiesTable.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -71,6 +72,41 @@ class SavedCityViewController: UIViewController  {
     }
 }
 
+// MARK: Search controller
+extension SavedCityViewController : UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        var predicate: NSPredicate?
+        let bar = searchController.searchBar.text
+//        if let searchText = searchController.searchBar.text {
+//            predicate = NSPredicate(format: "city_name BEGINSWITH[c] %@", searchText)
+//            fetchedResultsController.fetchRequest.predicate = predicate
+//        }else if ((searchController.searchBar.text?.isEmpty) != nil) {
+//            print("AAA")
+//        }
+//
+        if searchController.isActive {
+            if !(bar!.isEmpty){
+                predicate = NSPredicate(format: "city_name BEGINSWITH[c] %@", bar!)
+                fetchedResultsController.fetchRequest.predicate = predicate
+                print("ACTIVE")
+            }
+        } else {
+            print("NOT ACTIVE")
+            predicate = nil
+            savedCitiesTable.reloadData()
+            fetchSavedCityResults()
+        }
+        do {
+            try fetchedResultsController.performFetch()
+            savedCitiesTable.reloadData()
+        } catch {
+            delegate?.didTaskFail(error: error)
+        }
+    
+    }
+    
+}
 
 // MARK: - Table view data source
 extension SavedCityViewController: UITableViewDelegate, UITableViewDataSource{

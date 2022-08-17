@@ -37,6 +37,7 @@ class SearchCityTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cityCell", for: indexPath)
         let city = cityList[indexPath.row]
         cell.textLabel?.text = city.components(separatedBy: ",")[0]
+        cell.detailTextLabel?.text = city.components(separatedBy: ",")[2]
         
         return cell
     }

@@ -14,8 +14,8 @@ class AddCityViewController: UIViewController, NSFetchedResultsControllerDelegat
     var delegate : ServiceManagerDelegate?
 
     // Search controller
-    lazy var searchController = UISearchController(searchResultsController: searchCityTable)
-    lazy var searchCityTable = self.storyboard?.instantiateViewController(withIdentifier: "searchCityTableID") as! SearchCityTableViewController
+    lazy var searchController = UISearchController(searchResultsController: searchCityTableVC)
+    lazy var searchCityTableVC = self.storyboard?.instantiateViewController(withIdentifier: "searchCityTableID") as! SearchCityTableViewController
     
     //ManagedObjectContext
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -45,8 +45,9 @@ class AddCityViewController: UIViewController, NSFetchedResultsControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         //=Custom protocol
-        searchCityTable.delegate = self
+        searchCityTableVC.delegate = self
         //=searchController
         title = "Search city"
         navigationItem.searchController = searchController
@@ -54,6 +55,11 @@ class AddCityViewController: UIViewController, NSFetchedResultsControllerDelegat
         definesPresentationContext = true
         
         setUpFetchedResultsController()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        DispatchQueue.main.async { //focus searchbar
+            self.searchController.searchBar.becomeFirstResponder()
+        }
     }
     
     
@@ -84,8 +90,8 @@ extension AddCityViewController : UISearchResultsUpdating{
         if let searchText = searchController.searchBar.text {
             guard let safeUrl = URL(string: URLState.geobytes(searchText).APIString) else { return }
             guard searchText.count >= 3 else {
-                searchCityTable.cityList.removeAll()
-                searchCityTable.tableView.reloadData()
+                searchCityTableVC.cityList.removeAll()
+                searchCityTableVC.tableView.reloadData()
                 return
             }
             _ = ServiceManager.searchForCity(url: safeUrl) { cities, error in
@@ -93,8 +99,8 @@ extension AddCityViewController : UISearchResultsUpdating{
                     print(error.localizedDescription)
                     return
             }
-            self.searchCityTable.cityList = cities ?? [""]
-            self.searchCityTable.tableView.reloadData()
+            self.searchCityTableVC.cityList = cities ?? [""]
+            self.searchCityTableVC.tableView.reloadData()
             }
         }
     }
