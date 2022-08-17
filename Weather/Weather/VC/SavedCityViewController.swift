@@ -9,15 +9,16 @@ import UIKit
 import CoreData
 
 class SavedCityViewController: UIViewController  {
-
-    var city: City!
-
-    let searchController = UISearchController()
+    
     @IBOutlet weak var savedCitiesTable: UITableView!
-
-   // var weatherResultSet = [WeatherModel]()
-    // var stringCityName = ""
-    //let fetchedResultsController:NSFetchedResultsController<City>!
+    
+    //CoreData reference
+    var city: City!
+    //Custom protocol
+    var delegate : ServiceManagerDelegate?
+    //SearchController
+    let searchController = UISearchController()
+    // Empty array consisting the type WeatherModel data
     lazy var weatherResultSet = [WeatherModel](){
         didSet{
             DispatchQueue.main.async {
@@ -26,15 +27,15 @@ class SavedCityViewController: UIViewController  {
         }
     }
     
-    // CoreData
+    // MARK: CoreData
+    // Reference to managed object context
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var fetchedResultsController: NSFetchedResultsController<City>!
+    var fetchedResultsController: NSFetchedResultsController<City>! // fetch from coredata
     
-    func setUpFetchedResultsController() {
+    func fetchSavedCityResults() {
         let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "city_name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
-
         fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
             managedObjectContext: context,
@@ -43,41 +44,22 @@ class SavedCityViewController: UIViewController  {
         do {
             try fetchedResultsController.performFetch()
         } catch {
-            print("The fetch could not be performed: \(error.localizedDescription)")
+            self.delegate?.didTaskFail(error: error)
         }
     }
    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        ServiceManager.getWeatherData(with: URLState.openweather(city.city_name ?? "").APIString) { data in
-//            self.weatherResultSet = [data]
-//            city.city_temp = data.temperature
-//            city.icon = data.icon
-//        }
-        //self.citySelected(data: <#T##String#>)
-      
         savedCitiesTable.delegate = self
         savedCitiesTable.dataSource = self
-        // searchController parameters setup
-        //searchController.searchResultsUpdater = self
         
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search saved city"
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
-        setUpFetchedResultsController()
-  
-    
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        setUpFetchedResultsController()
-        //searchView.text = ""
+        fetchSavedCityResults()
         savedCitiesTable.reloadData()
     }
     
@@ -90,19 +72,15 @@ class SavedCityViewController: UIViewController  {
 }
 
 
-
 // MARK: - Table view data source
 extension SavedCityViewController: UITableViewDelegate, UITableViewDataSource{
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        //print("asdfsdfasdfDSAFASDF",weatherResultSet)
         return fetchedResultsController.sections?.count ?? 1
-        //return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
-        //return weatherResultSet.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,12 +90,6 @@ extension SavedCityViewController: UITableViewDelegate, UITableViewDataSource{
         let city = fetchedResultsController.object(at: indexPath)
         cell.cityNameLbl.text = city.city_name
         cell.cityTempLbl.text = String(city.city_temp)
-        
-        print("TEMPERATURE", String(city.city_temp))
-        
-        print("ICON:::::::",city.icon ?? "")
-        //print("ICON:::::::",urlString)
-        
 
         if let url = URL(string: "http://openweathermap.org/img/wn/\(city.icon ?? "")@2x.png") {
             let task = URLSession.shared.dataTask(with: url) { (data, urlResponse, error) in
@@ -132,36 +104,32 @@ extension SavedCityViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
             task.resume()
-
         }
-        //cell.cityTempLbl.text = city.city_temp
-
         return cell
     }
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "savedCityCell", for: indexPath) as!
-//            WeatherImgTableViewCell
-//
-//        let city = fetchedResultsController.object(at: indexPath)
-//        let iconID = weatherResultSet[indexPath.row].icon
-//
-//
-
-        
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            let deletedCity = self.fetchedResultsController.object(at: indexPath)
+            self.context.delete(deletedCity)
+            try? self.context.save()
+        }
+        return UISwipeActionsConfiguration(actions: [action])
+    }
 }
 
-
-// MARK: Extension for FetchedResultsControllerDelegate methods to automatically track and update the UI
+// MARK: FetchedResultsControllerDelegate
 extension SavedCityViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         savedCitiesTable.beginUpdates()
     }
-    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         savedCitiesTable.endUpdates()
     }
     
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .insert:
             savedCitiesTable.insertRows(at: [newIndexPath!], with: .fade)
@@ -172,12 +140,13 @@ extension SavedCityViewController: NSFetchedResultsControllerDelegate {
         case .move:
             savedCitiesTable.moveRow(at: indexPath!, to: newIndexPath!)
         @unknown default:
-            fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:). Only .insert or .delete should be possible.")
+            fatalError("Aborting")
         }
-        
     }
     
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange sectionInfo: NSFetchedResultsSectionInfo,
+                    atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         let indexSet = IndexSet(integer: sectionIndex)
         
         switch type {
@@ -186,22 +155,9 @@ extension SavedCityViewController: NSFetchedResultsControllerDelegate {
         case .delete:
             savedCitiesTable.deleteSections(indexSet, with: .fade)
         case .move, .update:
-            fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:). Only .insert or .delete should be possible.")
-    
+            fatalError("Abort the request")
         @unknown default:
-            fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:). Only .insert or .delete should be possible.")
+            fatalError("Aborting")
         }
-
-
-
-// MARK: - Search controller
-//extension SavedCityViewController : UISearchResultsUpdating{
-//    func updateSearchResults(for searchController: UISearchController) {
-//        guard let text = searchController.searchBar.text else {return}
-//        print(text)
-//    }
-//}
-
-
     }
 }

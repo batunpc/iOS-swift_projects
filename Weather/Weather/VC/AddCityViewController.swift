@@ -9,6 +9,9 @@ import UIKit
 import CoreData
 
 class AddCityViewController: UIViewController, NSFetchedResultsControllerDelegate {
+    
+    var selectedCity = ""
+    var delegate : ServiceManagerDelegate?
 
     // Search controller
     lazy var searchController = UISearchController(searchResultsController: searchCityTable)
@@ -20,7 +23,6 @@ class AddCityViewController: UIViewController, NSFetchedResultsControllerDelegat
 
     // Get a reference to the Core Data persistent container
     let appDelegate = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var weatherResultSet = [WeatherModel]()
     
     func setUpFetchedResultsController() {
         let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
@@ -55,31 +57,22 @@ class AddCityViewController: UIViewController, NSFetchedResultsControllerDelegat
     }
     
     
-    
     @IBAction func cancelBtn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
  
-    @IBAction func saveBtn(_ sender: Any) {
-        
-    }
-    
-    func addCity(component: String) {
-        
+    @IBAction func saveBtn(_ sender: Any ) {
+        //Save the selected city
         let city = City(context: context)
         //get data from openweatherAPI
-        city.city_name = component.components(separatedBy: ",")[0] // name
+        city.city_name = self.selectedCity // name
         ServiceManager.getWeatherData(with: URLState.openweather(city.city_name!).APIString) { data in
             city.city_temp = data.temperature //temp
             city.icon = data.icon // icon
-            //
-
-            do{
-                try self.context.save() //saving to the coredata
-            }catch {
-                print("Err:\(error.localizedDescription)")
-            }
+            try? self.context.save() //saving to the coredata
+            print("City has been saved")
         }
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -87,16 +80,14 @@ class AddCityViewController: UIViewController, NSFetchedResultsControllerDelegat
 // MARK: Search controller
 extension AddCityViewController : UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
-
+        
         if let searchText = searchController.searchBar.text {
             guard let safeUrl = URL(string: URLState.geobytes(searchText).APIString) else { return }
-
             guard searchText.count >= 3 else {
                 searchCityTable.cityList.removeAll()
                 searchCityTable.tableView.reloadData()
                 return
             }
-            
             _ = ServiceManager.searchForCity(url: safeUrl) { cities, error in
                 if let error = error {
                     print(error.localizedDescription)
@@ -115,7 +106,9 @@ extension AddCityViewController: TableCityDelegate {
    
         let cityName = data.components(separatedBy: ",")[0]
         title = cityName
-        addCity(component: data)
+        self.selectedCity = cityName
+        print("City has been selected")
+        //addCity(selectedCityName: cityName)
         
         searchController.isActive = false
     }

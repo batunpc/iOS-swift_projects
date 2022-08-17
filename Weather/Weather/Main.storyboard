@@ -125,14 +125,12 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="X3K-Xv-g6k">
                             <connections>
-                                <action selector="saveBtn:" destination="Yvb-Wv-tes" id="nng-Vl-H4X"/>
-                                <segue destination="z7O-9V-27K" kind="unwind" unwindAction="unwindToViewControllerWithSegue:" id="8xJ-eK-O2U"/>
+                                <action selector="saveBtn:" destination="Yvb-Wv-tes" id="qwA-8G-Pnq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cqO-UG-T2F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="z7O-9V-27K" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4002.898550724638" y="-340.17857142857139"/>
         </scene>

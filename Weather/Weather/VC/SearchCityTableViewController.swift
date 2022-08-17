@@ -45,7 +45,7 @@ class SearchCityTableViewController: UITableViewController {
         //let city = cityList[indexPath.row]
         let city = cityList[indexPath.row]
         delegate?.citySelected(data: city)
-        
+    
         //let chosenCityName = city.components(separatedBy: ",")[0]
         
         
