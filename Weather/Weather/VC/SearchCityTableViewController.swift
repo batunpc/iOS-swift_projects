@@ -37,18 +37,13 @@ class SearchCityTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cityCell", for: indexPath)
         let city = cityList[indexPath.row]
         cell.textLabel?.text = city.components(separatedBy: ",")[0]
-        cell.detailTextLabel?.text = city.components(separatedBy: ",")[2]
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let city = cityList[indexPath.row]
         let city = cityList[indexPath.row]
         delegate?.citySelected(data: city)
-    
-        //let chosenCityName = city.components(separatedBy: ",")[0]
-        
         
     }
 

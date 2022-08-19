@@ -89,7 +89,6 @@
 		4708048428A87FC600E7177D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4708048528A8802000E7177D /* ServiceManager.swift */,
 				4708048728A8805600E7177D /* WeatherDataResponse.swift */,
 				47CAFE4C28AA5CE200595146 /* WeatherModel.swift */,
 			);
@@ -109,6 +108,7 @@
 		47CAFE4528A9FFFB00595146 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4708048528A8802000E7177D /* ServiceManager.swift */,
 				47CAFE4A28AA35AD00595146 /* WeatherImgTableViewCell.swift */,
 				47CAFE4228A9F69E00595146 /* CityProtocol.swift */,
 			);

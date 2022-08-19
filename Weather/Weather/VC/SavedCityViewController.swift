@@ -51,7 +51,6 @@ class SavedCityViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         savedCitiesTable.delegate = self
         savedCitiesTable.dataSource = self
         searchController.searchResultsUpdater = self
@@ -59,9 +58,13 @@ class SavedCityViewController: UIViewController  {
         searchController.searchBar.placeholder = "Search saved city"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        
         fetchSavedCityResults()
         //savedCitiesTable.reloadData()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchSavedCityResults()
+        savedCitiesTable.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -122,7 +125,7 @@ extension SavedCityViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "savedCityCell", for: indexPath) as!
             WeatherImgTableViewCell
-    
+        
         let city = fetchedResultsController.object(at: indexPath)
         cell.cityNameLbl.text = city.city_name
         cell.cityTempLbl.text = String(city.city_temp)
@@ -176,7 +179,7 @@ extension SavedCityViewController: NSFetchedResultsControllerDelegate {
         case .move:
             savedCitiesTable.moveRow(at: indexPath!, to: newIndexPath!)
         @unknown default:
-            fatalError("Aborting")
+            fatalError("Error")
         }
     }
     
@@ -191,9 +194,9 @@ extension SavedCityViewController: NSFetchedResultsControllerDelegate {
         case .delete:
             savedCitiesTable.deleteSections(indexSet, with: .fade)
         case .move, .update:
-            fatalError("Abort the request")
+            fatalError("Error")
         @unknown default:
-            fatalError("Aborting")
+            fatalError("Error")
         }
     }
 }

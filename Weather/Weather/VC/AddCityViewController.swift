@@ -10,7 +10,7 @@ import CoreData
 
 class AddCityViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
-    var selectedCity = ""
+    static var selectedCity = ""
     var delegate : ServiceManagerDelegate?
 
     // Search controller
@@ -19,33 +19,38 @@ class AddCityViewController: UIViewController, NSFetchedResultsControllerDelegat
     
     //ManagedObjectContext
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var fetchedResultsController: NSFetchedResultsController<City>!
 
-    // Get a reference to the Core Data persistent container
-    let appDelegate = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    lazy var fetchedResultsController:
+      NSFetchedResultsController<City> = {
+      let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
+      let sortDescriptor = NSSortDescriptor(key: "city_name", ascending: false)
+      fetchRequest.sortDescriptors = [sortDescriptor]
+      let fetchedResultsController = NSFetchedResultsController(
+        fetchRequest: fetchRequest,
+        managedObjectContext: context,
+        sectionNameKeyPath: "city_name",
+        cacheName: nil)
+          do {
+              try fetchedResultsController.performFetch()
+          } catch {
+              delegate?.didTaskFail(error: error)
+          }
+      return fetchedResultsController
+    }()
     
     func setUpFetchedResultsController() {
-        let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "city_name", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: context,
-            sectionNameKeyPath: "city_name", cacheName: nil
-        )
         fetchedResultsController.delegate = self
-        
+
         do {
             try fetchedResultsController.performFetch()
         } catch {
-            print("The fetch could not be performed: \(error.localizedDescription)")
+            delegate?.didTaskFail(error: error)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
         //=Custom protocol
         searchCityTableVC.delegate = self
         //=searchController
@@ -53,25 +58,27 @@ class AddCityViewController: UIViewController, NSFetchedResultsControllerDelegat
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         definesPresentationContext = true
-        
         setUpFetchedResultsController()
     }
+    
+    //Autofocus searchbar
     override func viewDidAppear(_ animated: Bool) {
-        DispatchQueue.main.async { //focus searchbar
+        DispatchQueue.main.async {
             self.searchController.searchBar.becomeFirstResponder()
         }
     }
     
-    
+    //Cancel the selected city
     @IBAction func cancelBtn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
- 
+    
+    // Save the NSManagedObject only if user clicks on save
     @IBAction func saveBtn(_ sender: Any ) {
         //Save the selected city
         let city = City(context: context)
         //get data from openweatherAPI
-        city.city_name = self.selectedCity // name
+        city.city_name = AddCityViewController.selectedCity // name
         ServiceManager.getWeatherData(with: URLState.openweather(city.city_name!).APIString) { data in
             city.city_temp = data.temperature //temp
             city.icon = data.icon // icon
@@ -112,9 +119,8 @@ extension AddCityViewController: TableCityDelegate {
    
         let cityName = data.components(separatedBy: ",")[0]
         title = cityName
-        self.selectedCity = cityName
+        AddCityViewController.selectedCity = cityName
         print("City has been selected")
-        //addCity(selectedCityName: cityName)
         
         searchController.isActive = false
     }
