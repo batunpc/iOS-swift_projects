@@ -8,5 +8,5 @@
 import Foundation
 
 protocol TableStocksDelegate:AnyObject {
-    func citySelected(data : String)
+    func companySelected(data : CompanyDetail)
 }

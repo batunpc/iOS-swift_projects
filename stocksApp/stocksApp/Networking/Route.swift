@@ -7,17 +7,7 @@
 
 import Foundation
 
-//enum Route {
-//    static let baseURL = "https://ms-finance.p.rapidapi.com/market/v2/auto-complete"
-//
-//    case temp
-//
-//    var description: String {
-//        switch self {
-//        case .temp: return "/temp"
-//        }
-//    }
-//}
+
 enum Route{
     
     static let baseURL = "https://ms-finance.p.rapidapi.com/market/v2/auto-complete"
@@ -31,4 +21,9 @@ enum Route{
 
         }
     }
+}
+// Error handling
+enum StocksError:Error{
+    case dataNotAvailable
+    case dataFormatInvalid
 }

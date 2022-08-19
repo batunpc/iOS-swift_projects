@@ -72,15 +72,13 @@
 			children = (
 				4705EFEA28AEF8D600705119 /* AppDelegate.swift */,
 				4705EFEC28AEF8D600705119 /* SceneDelegate.swift */,
+				4705F01328B01A1800705119 /* VC */,
 				4705F00D28AF436E00705119 /* Networking */,
-				4705F01028AF5D9B00705119 /* StockResponse.swift */,
-				4705F01228AF7C3300705119 /* New Group */,
-				4705EFF028AEF8D600705119 /* Main.storyboard */,
-				4705F00128AF03C300705119 /* AddStockTableViewController.swift */,
-				4705F00328AF067E00705119 /* SearchStockViewController.swift */,
+				4705F01228AF7C3300705119 /* Model */,
 				4705F00E28AF505700705119 /* protocols.swift */,
-				4705EFF628AEF8D700705119 /* Assets.xcassets */,
+				4705EFF028AEF8D600705119 /* Main.storyboard */,
 				4705EFF828AEF8D700705119 /* LaunchScreen.storyboard */,
+				4705EFF628AEF8D700705119 /* Assets.xcassets */,
 				4705EFFB28AEF8D700705119 /* Info.plist */,
 				4705EFF328AEF8D600705119 /* stocksApp.xcdatamodeld */,
 			);
@@ -97,11 +95,21 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		4705F01228AF7C3300705119 /* New Group */ = {
+		4705F01228AF7C3300705119 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4705F01028AF5D9B00705119 /* StockResponse.swift */,
 			);
-			name = "New Group";
+			name = Model;
+			sourceTree = "<group>";
+		};
+		4705F01328B01A1800705119 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				4705F00328AF067E00705119 /* SearchStockViewController.swift */,
+				4705F00128AF03C300705119 /* AddStockTableViewController.swift */,
+			);
+			path = VC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

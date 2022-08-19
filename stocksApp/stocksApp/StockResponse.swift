@@ -13,9 +13,9 @@ struct Results: Codable {
     let pages : Int
     let results : [CompanyDetail]
 }
+
 struct CompanyDetail: Codable {
     let name : String
-    
 }
 
 

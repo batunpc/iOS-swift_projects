@@ -8,17 +8,20 @@
 import UIKit
 
 class AddStockTableViewController: UITableViewController {
-
     
-    lazy var stockList = [String]() {
+    weak var delegate : TableStocksDelegate?
+    
+    lazy var companyList = [CompanyDetail]() {
         didSet{
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
-    // MARK: - Table view data source
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 
     
     // MARK: - Table view data source
@@ -27,21 +30,21 @@ class AddStockTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stockList.count
+        return companyList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cityCell", for: indexPath)
-        let city = stockList[indexPath.row]
-        cell.textLabel?.text = city.components(separatedBy: ",")[0]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "stockCell", for: indexPath)
+        let company = companyList[indexPath.row]
+        //cell.textLabel?.text = company.components(separatedBy: ",")[0]
+        cell.textLabel?.text = company.name
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let city = stockList[indexPath.row]
-        //delegate?.citySelected(data: city)
-        
+        let company = companyList[indexPath.row]
+        delegate?.companySelected(data: company)
     }
 
 //    override func numberOfSections(in tableView: UITableView) -> Int {

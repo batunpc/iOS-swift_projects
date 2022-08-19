@@ -16,30 +16,28 @@ struct ServiceManager {
     ]
     
     // MARK: Finance autocomplete
-    static func createRequest(route: Route,
-                              method: Method,
-                              completion: @escaping (Result<[CompanyDetail], Error>) -> Void) -> URLRequest? {
-        let urlString = Route.baseURL + route.description // concataneted URL
+    static func createRequest(route: Route,method: Method,
+                              completion: @escaping (Result<[CompanyDetail], StocksError>) -> Void) -> URLRequest? {
+        
+        let urlString = Route.baseURL + route.description /// concataneted URL
         guard let url = URL(string: urlString) else { return nil }
         let urlRequest = NSMutableURLRequest(url: url,cachePolicy: .useProtocolCachePolicy,
                                              timeoutInterval: 10.0)
         urlRequest.httpMethod = method.rawValue
-        urlRequest.allHTTPHeaderFields = headers // set the header
+        urlRequest.allHTTPHeaderFields = headers /// set the header
         
         switch method {
         case .get:
-            URLSession.shared.dataTask(with: urlRequest as URLRequest, completionHandler: { (data, response, error) -> Void in
-                guard let jsonData = data else {
-                    completion(.failure(error!))
+            URLSession.shared.dataTask(with: urlRequest as URLRequest, completionHandler: { data, _, _ -> Void in
+                guard let jsonData = data else {completion(.failure(.dataNotAvailable))
                     return
                 }
                 do {
                     let stockResults = try JSONDecoder().decode(Results.self, from: jsonData)
-                    let companyDetail = stockResults.results
-                    
-                    print(companyDetail)
+                    let companyDetail = stockResults.results /// array of stocks
+                    completion(.success(companyDetail))
                 }catch{
-                    completion(.failure(error))
+                    completion(.failure(.dataFormatInvalid))
                 }
             }).resume()
         }
