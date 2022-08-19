@@ -17,7 +17,7 @@ struct ServiceManager {
     
     // MARK: Finance autocomplete
     static func createRequest(route: Route,method: Method,
-                              completion: @escaping (Result<[CompanyDetail], StocksError>) -> Void) -> URLRequest? {
+                              completion: @escaping (Result<[CompanyDetail]?, StocksError>) -> Void) -> URLRequest? {
         
         let urlString = Route.baseURL + route.description /// concataneted URL
         guard let url = URL(string: urlString) else { return nil }

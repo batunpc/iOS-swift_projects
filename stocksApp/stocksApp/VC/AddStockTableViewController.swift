@@ -10,7 +10,8 @@ import UIKit
 class AddStockTableViewController: UITableViewController {
     
     weak var delegate : TableStocksDelegate?
-    
+
+    // This will hold the filtered array when searching
     lazy var companyList = [CompanyDetail]() {
         didSet{
             DispatchQueue.main.async {
@@ -36,9 +37,8 @@ class AddStockTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "stockCell", for: indexPath)
         let company = companyList[indexPath.row]
-        //cell.textLabel?.text = company.components(separatedBy: ",")[0]
+        print(company)
         cell.textLabel?.text = company.name
-        
         return cell
     }
     
@@ -47,15 +47,6 @@ class AddStockTableViewController: UITableViewController {
         delegate?.companySelected(data: company)
     }
 
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

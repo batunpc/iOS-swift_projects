@@ -9,8 +9,6 @@ import UIKit
 
 class SearchStockViewController: UIViewController {
     
-    //var listOfCompanyDetail = [CompanyDetail]()
-    
     // Search controller
     lazy var searchController = UISearchController(searchResultsController: addStockTableVC)
     lazy var addStockTableVC = self.storyboard?.instantiateViewController(withIdentifier: "addStockTableVC") as! AddStockTableViewController
@@ -29,6 +27,7 @@ class SearchStockViewController: UIViewController {
     }
 }
 
+// Search Results
 extension SearchStockViewController : UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else {return}
@@ -37,21 +36,20 @@ extension SearchStockViewController : UISearchResultsUpdating {
             case .failure(let error):
                 print(error)
             case .success(let company):
-                //self?.listOfCompanyDetail = stocks
-                self?.addStockTableVC.companyList = company
-                print(company.description)
+                self?.addStockTableVC.companyList = company ?? []
+                DispatchQueue.main.async {
+                    self?.addStockTableVC.tableView.reloadData()
+                }
             }
         }
     }
 }
-// MARK: = Custom protocol written to get the city name from tableview after city is chosen
+// MARK: = protocol to get the company name
 extension SearchStockViewController: TableStocksDelegate {
     func companySelected(data: CompanyDetail) {
         let cityName = data.name
         title = cityName
-        //SearchStockViewController.
-        //AddCityViewController.selectedCity = cityName
-        print("City has been selected")
+        print("Company selected")
         
         searchController.isActive = false
     }
