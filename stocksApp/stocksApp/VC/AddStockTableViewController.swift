@@ -37,7 +37,6 @@ class AddStockTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "stockCell", for: indexPath)
         let company = companyList[indexPath.row]
-        print(company)
         cell.textLabel?.text = company.name
         return cell
     }

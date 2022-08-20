@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Results: Codable {
+struct StockResponse: Codable {
     let count : Int
     let pages : Int
     let results : [CompanyDetail]
@@ -16,6 +16,7 @@ struct Results: Codable {
 
 struct CompanyDetail: Codable {
     let name : String
+    let performanceId : String
 }
 
 

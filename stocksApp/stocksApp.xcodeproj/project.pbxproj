@@ -20,6 +20,11 @@
 		4705F00C28AF41AD00705119 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F00B28AF41AD00705119 /* Method.swift */; };
 		4705F00F28AF505700705119 /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F00E28AF505700705119 /* protocols.swift */; };
 		4705F01128AF5D9B00705119 /* StockResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F01028AF5D9B00705119 /* StockResponse.swift */; };
+		4705F01528B03F3500705119 /* SavedStocksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F01428B03F3500705119 /* SavedStocksTableViewController.swift */; };
+		4705F01B28B04EDB00705119 /* StockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F01A28B04EDB00705119 /* StockModel.swift */; };
+		4705F02028B07EE000705119 /* Stock+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F01E28B07EE000705119 /* Stock+CoreDataClass.swift */; };
+		4705F02128B07EE000705119 /* Stock+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F01F28B07EE000705119 /* Stock+CoreDataProperties.swift */; };
+		4705F02828B08B9F00705119 /* StockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F02728B08B9F00705119 /* StockTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +43,11 @@
 		4705F00B28AF41AD00705119 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		4705F00E28AF505700705119 /* protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
 		4705F01028AF5D9B00705119 /* StockResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockResponse.swift; sourceTree = "<group>"; };
+		4705F01428B03F3500705119 /* SavedStocksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedStocksTableViewController.swift; sourceTree = "<group>"; };
+		4705F01A28B04EDB00705119 /* StockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockModel.swift; sourceTree = "<group>"; };
+		4705F01E28B07EE000705119 /* Stock+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stock+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4705F01F28B07EE000705119 /* Stock+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stock+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4705F02728B08B9F00705119 /* StockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +82,8 @@
 			children = (
 				4705EFEA28AEF8D600705119 /* AppDelegate.swift */,
 				4705EFEC28AEF8D600705119 /* SceneDelegate.swift */,
+				4705F01E28B07EE000705119 /* Stock+CoreDataClass.swift */,
+				4705F01F28B07EE000705119 /* Stock+CoreDataProperties.swift */,
 				4705F01328B01A1800705119 /* VC */,
 				4705F00D28AF436E00705119 /* Networking */,
 				4705F01228AF7C3300705119 /* Model */,
@@ -99,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				4705F01028AF5D9B00705119 /* StockResponse.swift */,
+				4705F01A28B04EDB00705119 /* StockModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -106,10 +119,20 @@
 		4705F01328B01A1800705119 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				4705F02428B08AEE00705119 /* Cell */,
+				4705F01428B03F3500705119 /* SavedStocksTableViewController.swift */,
 				4705F00328AF067E00705119 /* SearchStockViewController.swift */,
 				4705F00128AF03C300705119 /* AddStockTableViewController.swift */,
 			);
 			path = VC;
+			sourceTree = "<group>";
+		};
+		4705F02428B08AEE00705119 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4705F02728B08B9F00705119 /* StockTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,12 +207,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				4705F00C28AF41AD00705119 /* Method.swift in Sources */,
+				4705F01528B03F3500705119 /* SavedStocksTableViewController.swift in Sources */,
 				4705F00A28AF410300705119 /* Route.swift in Sources */,
 				4705EFEB28AEF8D600705119 /* AppDelegate.swift in Sources */,
 				4705F01128AF5D9B00705119 /* StockResponse.swift in Sources */,
 				4705EFF528AEF8D600705119 /* stocksApp.xcdatamodeld in Sources */,
+				4705F02128B07EE000705119 /* Stock+CoreDataProperties.swift in Sources */,
 				4705F00428AF067E00705119 /* SearchStockViewController.swift in Sources */,
 				4705EFED28AEF8D600705119 /* SceneDelegate.swift in Sources */,
+				4705F02028B07EE000705119 /* Stock+CoreDataClass.swift in Sources */,
+				4705F02828B08B9F00705119 /* StockTableViewCell.swift in Sources */,
+				4705F01B28B04EDB00705119 /* StockModel.swift in Sources */,
 				4705F00F28AF505700705119 /* protocols.swift in Sources */,
 				4705F00628AF0EDD00705119 /* ServiceManager.swift in Sources */,
 				4705F00228AF03C300705119 /* AddStockTableViewController.swift in Sources */,

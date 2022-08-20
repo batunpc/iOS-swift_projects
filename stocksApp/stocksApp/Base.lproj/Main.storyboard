@@ -88,19 +88,39 @@
         <!--MY Stocks-->
         <scene sceneID="dMN-6W-KJr">
             <objects>
-                <tableViewController id="3cC-RT-eQA" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="vyg-fP-NFd">
+                <tableViewController id="3cC-RT-eQA" customClass="SavedStocksTableViewController" customModule="stocksApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="vyg-fP-NFd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="stockCell" id="X8p-jv-DOb">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="savedStockCell" textLabel="ocS-ra-0Fd" detailTextLabel="Vb6-fN-VIA" rowHeight="67" style="IBUITableViewCellStyleSubtitle" id="X8p-jv-DOb" customClass="StockTableViewCell" customModule="stocksApp">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="67"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X8p-jv-DOb" id="RDu-jN-QIJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="67"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ocS-ra-0Fd">
+                                            <rect key="frame" x="20" y="8.5" width="37.5" height="23.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vb6-fN-VIA">
+                                            <rect key="frame" x="20" y="35.5" width="61.5" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="companyNameLbl" destination="ocS-ra-0Fd" id="Mke-0e-e9l"/>
+                                    <outlet property="lastPriceLbl" destination="Vb6-fN-VIA" id="UDl-3P-N05"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -123,7 +143,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oa-az-INa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4165" y="-627"/>
+            <point key="canvasLocation" x="4163.768115942029" y="-627.45535714285711"/>
         </scene>
         <!--Search Stock View Controller-->
         <scene sceneID="gk1-Ee-mq9">
@@ -132,14 +152,48 @@
                     <view key="view" contentMode="scaleToFill" id="CEq-aD-jqb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="RZl-yK-jAh">
+                                <rect key="frame" x="0.0" y="108" width="414" height="32"/>
+                                <segments>
+                                    <segment title="Active"/>
+                                    <segment title="Watch List"/>
+                                </segments>
+                                <connections>
+                                    <action selector="selectedPortion:" destination="EPb-Ro-Pva" eventType="valueChanged" id="Nf4-Ua-fmK"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4BK-Pw-md0">
+                                <rect key="frame" x="157" y="184" width="100" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="RH5-5m-fPF"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Add Stock"/>
+                                <connections>
+                                    <action selector="addStockPressed:" destination="EPb-Ro-Pva" eventType="touchUpInside" id="5RG-OP-LKT"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Tu5-dN-2iC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Tu5-dN-2iC" firstAttribute="trailing" secondItem="4BK-Pw-md0" secondAttribute="trailing" constant="157" id="cXI-rw-1hy"/>
+                            <constraint firstItem="RZl-yK-jAh" firstAttribute="trailing" secondItem="Tu5-dN-2iC" secondAttribute="trailing" id="fjE-BY-alC"/>
+                            <constraint firstItem="4BK-Pw-md0" firstAttribute="leading" secondItem="Tu5-dN-2iC" secondAttribute="leading" constant="157" id="q43-KC-fp1"/>
+                            <constraint firstItem="4BK-Pw-md0" firstAttribute="top" secondItem="RZl-yK-jAh" secondAttribute="bottom" constant="45" id="rIR-6g-kV2"/>
+                            <constraint firstItem="RZl-yK-jAh" firstAttribute="top" secondItem="Tu5-dN-2iC" secondAttribute="top" constant="20" id="whl-sE-XkW"/>
+                            <constraint firstItem="RZl-yK-jAh" firstAttribute="leading" secondItem="Tu5-dN-2iC" secondAttribute="leading" id="ySD-Pw-wcA"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="esU-eG-TVa"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="RZl-yK-jAh" id="2jk-Il-WWm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FH3-CA-qFg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5954" y="-627"/>
+            <point key="canvasLocation" x="5953.6231884057979" y="-627.45535714285711"/>
         </scene>
         <!--Add Stock Table View Controller-->
         <scene sceneID="d6X-Kw-73Z">
@@ -176,7 +230,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IBh-9D-laj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6814" y="-627"/>
+            <point key="canvasLocation" x="6781" y="-621"/>
         </scene>
         <!--MyStock-->
         <scene sceneID="gf7-rh-nIk">

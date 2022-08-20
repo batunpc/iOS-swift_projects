@@ -9,13 +9,20 @@ import Foundation
 
 
 enum Route{
-    static let baseURL = "https://ms-finance.p.rapidapi.com/market/v2/auto-complete"
+    //To autocomplete the company - get the performance-ID from autocomplete
+    static let autoCompleteBaseURL = "https://ms-finance.p.rapidapi.com/market/v2/auto-complete"
+    //To get realtime price
+    static let priceBaseURL = "https://ms-finance.p.rapidapi.com/stock/v2/get-realtime-data"
     
-    case financeSearch(String)
+    case companySearch(String)
+    case realTimePrice(String)
+    
     var description: String{
         switch self {
-        case .financeSearch(let stock):
+        case .companySearch(let stock):
             return "?q=\(stock)"
+        case.realTimePrice(let performanceID ):
+            return "?performanceId=\(performanceID)"
         }
     }
 }
@@ -24,13 +31,15 @@ enum Route{
 enum StocksError:Error{
     case dataNotAvailable
     case dataFormatInvalid
-
+    
+    
     var description: String{
         switch self {
             case .dataNotAvailable:
                 return "Aborting"
             case .dataFormatInvalid:
-                return "searchbar is empty"
+                return "Searchbar is either empty or data is Invalid"
+  
         }
     }
 }
