@@ -10,20 +10,14 @@ import CoreData
 
 class SavedStocksTableViewController: UITableViewController {
     
-    //SearchController
-    let searchController = UISearchController()
     
     // NSManagedObjectContext
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var fetchedResultsController: NSFetchedResultsController<Stock>!
+    var stockFetchedResultsController: NSFetchedResultsController<Stock>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "MY Stocks"
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search favorite stocks"
-        navigationItem.searchController = searchController
         definesPresentationContext = true
         //fetchSavedStocks()
         self.fetchSavedStocks()
@@ -35,28 +29,35 @@ class SavedStocksTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+
+    
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 1
-        //print(fetchedResultsController.sections?.count)
+        return stockFetchedResultsController.sections?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+        return stockFetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "savedStockCell", for: indexPath) as! StockTableViewCell
-        let stock = fetchedResultsController.object(at: indexPath)
+        let stock = stockFetchedResultsController.object(at: indexPath)
         cell.companyNameLbl.text = stock.companyName
         cell.lastPriceLbl.text = String(stock.lastPrice)
         return cell
     }
+    //MARK: TODO
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        //return stockFetchedResultsController.sections?[section].name
+//        return categoryFetchedResultsController.sections?[section].name
+//    }
 }
 
 extension SavedStocksTableViewController : UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
         let bar = searchController.searchBar.text
+        //MARK: TODO:
         print(bar!)
     }
 }
@@ -64,7 +65,7 @@ extension SavedStocksTableViewController : UISearchResultsUpdating{
 // MARK: CoreData fetch
 extension SavedStocksTableViewController : NSFetchedResultsControllerDelegate {
     func fetchSavedStocks() {
-         self.fetchedResultsController = {
+         self.stockFetchedResultsController = {
           let fetchRequest: NSFetchRequest<Stock> = Stock.fetchRequest()
           let sortDescriptor = NSSortDescriptor(key: "companyName", ascending: false)
           fetchRequest.sortDescriptors = [sortDescriptor]
@@ -80,9 +81,9 @@ extension SavedStocksTableViewController : NSFetchedResultsControllerDelegate {
               }
           return fetchedResultsController
         }()
-        fetchedResultsController.delegate = self
+        stockFetchedResultsController.delegate = self
         do {
-            try fetchedResultsController.performFetch()
+            try stockFetchedResultsController.performFetch()
         } catch {
             print(error.localizedDescription)
         }

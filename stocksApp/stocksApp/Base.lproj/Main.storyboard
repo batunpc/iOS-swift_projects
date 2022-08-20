@@ -16,6 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <tabBarAppearance key="standardAppearance"/>
                     </tabBar>
                     <connections>
                         <segue destination="nI3-nM-jf7" kind="relationship" relationship="viewControllers" id="l1c-qa-sXu"/>
@@ -186,7 +187,9 @@
                             <constraint firstItem="RZl-yK-jAh" firstAttribute="leading" secondItem="Tu5-dN-2iC" secondAttribute="leading" id="ySD-Pw-wcA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="esU-eG-TVa"/>
+                    <navigationItem key="navigationItem" id="esU-eG-TVa">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="UUT-cg-UXP"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="segmentedControl" destination="RZl-yK-jAh" id="2jk-Il-WWm"/>
                     </connections>

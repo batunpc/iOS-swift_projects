@@ -2,7 +2,7 @@
 //  Stock+CoreDataProperties.swift
 //  stocksApp
 //
-//  Created by Batuhan Ipci on 2022-08-19.
+//  Created by Batuhan Ipci on 2022-08-20.
 //
 //
 
@@ -18,6 +18,7 @@ extension Stock {
 
     @NSManaged public var companyName: String?
     @NSManaged public var lastPrice: Double
+    @NSManaged public var category: String?
 
 }
 

@@ -2,7 +2,7 @@
 //  Stock+CoreDataClass.swift
 //  stocksApp
 //
-//  Created by Batuhan Ipci on 2022-08-19.
+//  Created by Batuhan Ipci on 2022-08-20.
 //
 //
 

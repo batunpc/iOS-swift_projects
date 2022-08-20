@@ -12,6 +12,7 @@ class SearchStockViewController: UIViewController {
     
     var selectedCompany = ""
     
+    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     // Search controller
@@ -23,8 +24,6 @@ class SearchStockViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //core data fetchedResultsController
-        self.prepareFetchedResultsController()
         //custom delegate
         addStockTableVC.delegate = self
         //searchController
@@ -44,11 +43,13 @@ class SearchStockViewController: UIViewController {
     }
     
     @IBAction func selectedPortion(_ sender: UISegmentedControl) {
+        //category NSManagedObject
         switch segmentedControl.selectedSegmentIndex {
         case 0 :
-            print("Active portion selected")
+            print("Active selected")
         case 1 :
-            print("Watch List portion selected")
+            print("Watch List selected")
+            // save the data
         default:
             break
         }
@@ -62,7 +63,6 @@ class SearchStockViewController: UIViewController {
     func saveStock(id: String){
         //Save the NSManagedObject
         let stock = Stock(context: context)
-       
         //Retrieve lastPrice using performance Id
         _ = ServiceManager.getStockPrice(route: .realTimePrice(id), method: .get) { result in
             switch result {
@@ -113,31 +113,4 @@ extension SearchStockViewController: TableStocksDelegate {
     }
 }
 
-// MARK: CoreData fetch
-extension SearchStockViewController : NSFetchedResultsControllerDelegate {
-    func prepareFetchedResultsController() {
-        lazy var fetchedResultsController:
-          NSFetchedResultsController<Stock> = {
-          let fetchRequest: NSFetchRequest<Stock> = Stock.fetchRequest()
-          let sortDescriptor = NSSortDescriptor(key: "companyName", ascending: false)
-          fetchRequest.sortDescriptors = [sortDescriptor]
-          let fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: context,
-            sectionNameKeyPath: "lastPrice",
-            cacheName: nil)
-              do {
-                  try fetchedResultsController.performFetch()
-              } catch {
-                  print(error.localizedDescription)
-              }
-          return fetchedResultsController
-        }()
-        fetchedResultsController.delegate = self
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-}
+
