@@ -77,8 +77,11 @@ class SavedStocksTableViewController: UITableViewController {
         let object = stockFetchedResultsController.object(at: sourceIndexPath)
         objects.remove(at: sourceIndexPath.row)
         objects.insert(object, at: destinationIndexPath.row)
-        tableView.reloadData()
-        try? self.context.save()
+        DispatchQueue.main.async {
+            tableView.reloadData()
+            try? self.context.save()
+        }
+      
     }
 
 }

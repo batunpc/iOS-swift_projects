@@ -23,6 +23,8 @@ class SearchStockViewController: UIViewController {
     // STOCK NSManagedObjectContext - reference to the Core Data persistent container
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    var indicator = UIActivityIndicatorView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //custom delegate
@@ -36,6 +38,12 @@ class SearchStockViewController: UIViewController {
         definesPresentationContext = true
         navigationItem.searchController = searchController
         selectedCategory = "Active"
+    }
+    func activityIndicator() {
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.style = UIActivityIndicatorView.Style.medium
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
     }
     
     //Autofocus on searchbar
@@ -63,24 +71,34 @@ class SearchStockViewController: UIViewController {
         }   
     }
     
-    @IBAction func cancelBtn(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
     
     func saveStock(id: String){
         //Save the NSManagedObject
         let stock = Stock(context: context)
         //Retrieve lastPrice using performance Id
+        activityIndicator()
+        indicator.startAnimating()
+        indicator.backgroundColor = .white
+        
         _ = ServiceManager.getStockPrice(route: .realTimePrice(id), method: .get) { result in
             switch result {
             case.failure(let error):
                 print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.indicator.stopAnimating()
+                    self.indicator.hidesWhenStopped = true
+                }
             case.success(let lastPrice):
                 stock.category = self.selectedCategory
                 stock.companyName = self.selectedCompany
                 stock.performanceID = self.id
                 stock.lastPrice = Double(lastPrice) ?? 0
                 try? self.context.save() // save the data
+                DispatchQueue.main.async {
+                    self.indicator.stopAnimating()
+                    self.indicator.hidesWhenStopped = true
+                }
+          
             }
             DispatchQueue.main.async {
                 self.dismiss(animated: true, completion: nil)
