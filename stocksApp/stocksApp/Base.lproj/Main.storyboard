@@ -20,7 +20,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="nI3-nM-jf7" kind="relationship" relationship="viewControllers" id="l1c-qa-sXu"/>
-                        <segue destination="wn2-cO-99L" kind="relationship" relationship="viewControllers" id="eAJ-8z-bXO"/>
+                        <segue destination="ya3-o8-hWT" kind="relationship" relationship="viewControllers" id="eAJ-8z-bXO"/>
                         <segue destination="iv9-8x-8N7" kind="relationship" relationship="viewControllers" id="kWZ-3t-0YQ"/>
                     </connections>
                 </tabBarController>
@@ -28,10 +28,10 @@
             </objects>
             <point key="canvasLocation" x="2315" y="33"/>
         </scene>
-        <!--News-->
+        <!--News Table View Controller-->
         <scene sceneID="ydS-YF-VT7">
             <objects>
-                <tableViewController id="wn2-cO-99L" sceneMemberID="viewController">
+                <tableViewController id="wn2-cO-99L" customClass="NewsTableViewController" customModule="stocksApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="OaV-cs-xG2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -60,11 +60,11 @@
                             <outlet property="delegate" destination="wn2-cO-99L" id="JFc-WJ-8BQ"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="News" id="s1o-If-NJM"/>
+                    <navigationItem key="navigationItem" id="ehR-m6-n5O"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jMl-kq-O8g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3232" y="99"/>
+            <point key="canvasLocation" x="4142.0289855072469" y="98.4375"/>
         </scene>
         <!--Movers-->
         <scene sceneID="btq-5E-Hts">
@@ -162,7 +162,7 @@
         <!--Search Stock View Controller-->
         <scene sceneID="gk1-Ee-mq9">
             <objects>
-                <viewController id="EPb-Ro-Pva" customClass="SearchStockViewController" customModule="stocksApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchStockVCID" id="EPb-Ro-Pva" customClass="SearchStockViewController" customModule="stocksApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CEq-aD-jqb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -201,7 +201,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="esU-eG-TVa">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="UUT-cg-UXP"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="UUT-cg-UXP">
+                            <connections>
+                                <action selector="cancelBtn:" destination="EPb-Ro-Pva" id="jz9-Em-IMd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="segmentedControl" destination="RZl-yK-jAh" id="2jk-Il-WWm"/>
@@ -285,6 +289,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XhP-7h-v5L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5080" y="-627"/>
+        </scene>
+        <!--News-->
+        <scene sceneID="V4Q-To-Vfi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ya3-o8-hWT" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="News" id="s1o-If-NJM"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oBK-ai-By4">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wn2-cO-99L" kind="relationship" relationship="rootViewController" id="Cad-jG-aoj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oAQ-tz-7pU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3231.884057971015" y="98.4375"/>
         </scene>
     </scenes>
     <resources>

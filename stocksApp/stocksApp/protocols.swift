@@ -10,4 +10,3 @@ import Foundation
 protocol TableStocksDelegate:AnyObject {
     func companySelected(data : CompanyDetail)
 }
-

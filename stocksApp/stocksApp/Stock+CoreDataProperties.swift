@@ -19,6 +19,7 @@ extension Stock {
     @NSManaged public var companyName: String?
     @NSManaged public var lastPrice: Double
     @NSManaged public var category: String?
+    @NSManaged public var performanceID: String?
 
 }
 

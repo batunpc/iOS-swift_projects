@@ -16,7 +16,7 @@ struct StockResponse: Codable {
 
 struct CompanyDetail: Codable {
     let name : String
-    let performanceId : String
+    let performanceId : String?
 }
 
 

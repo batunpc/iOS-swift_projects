@@ -10,9 +10,10 @@ import CoreData
 
 class SearchStockViewController: UIViewController {
     
+    var id = ""
     var selectedCompany = ""
     var selectedCategory = ""
-    
+ 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     // Search controller
@@ -45,23 +46,25 @@ class SearchStockViewController: UIViewController {
     }
     
     @IBAction func selectedPortion(_ sender: UISegmentedControl) {
-    
         switch segmentedControl.selectedSegmentIndex {
         case 0 :
             selectedCategory = "Active"
-            
         case 1 :
             selectedCategory = "Watch List"
-            //print("Watch List selected")
-            // save the data
         default:
             break
         }
     }
     
     @IBAction func addStockPressed(_ sender: Any) {
-        let performanceId = addStockTableVC.companyList.map{$0.performanceId.description}
-        saveStock(id: performanceId[0])
+        let performanceId = addStockTableVC.companyList.map{$0.performanceId?.description}
+        if performanceId.isEmpty{return} else {
+            saveStock(id: performanceId[0] ?? "")
+        }   
+    }
+    
+    @IBAction func cancelBtn(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func saveStock(id: String){
@@ -75,6 +78,7 @@ class SearchStockViewController: UIViewController {
             case.success(let lastPrice):
                 stock.category = self.selectedCategory
                 stock.companyName = self.selectedCompany
+                stock.performanceID = self.id
                 stock.lastPrice = Double(lastPrice) ?? 0
                 try? self.context.save() // save the data
             }
@@ -112,9 +116,12 @@ extension SearchStockViewController : UISearchResultsUpdating {
 extension SearchStockViewController: TableStocksDelegate {
     func companySelected(data: CompanyDetail) {
         let companyName = data.name
+        let performanceID = data.performanceId
+        
         title = companyName
-        print("\(companyName) Company selected")
         selectedCompany = companyName
+        id = performanceID ?? ""
+        print("ID", id)
         searchController.isActive = false
     }
 }

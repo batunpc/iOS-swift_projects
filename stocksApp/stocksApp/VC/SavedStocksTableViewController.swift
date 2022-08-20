@@ -10,7 +10,6 @@ import CoreData
 
 class SavedStocksTableViewController: UITableViewController {
     
-    
     // NSManagedObjectContext
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var stockFetchedResultsController: NSFetchedResultsController<Stock>!
@@ -19,9 +18,7 @@ class SavedStocksTableViewController: UITableViewController {
         super.viewDidLoad()
         title = "MY Stocks"
         definesPresentationContext = true
-        //fetchSavedStocks()
         self.fetchSavedStocks()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,9 +32,7 @@ class SavedStocksTableViewController: UITableViewController {
         }else{
             tableView.isEditing = true
         }
-        
     }
-    
 
     
     // MARK: - Table view data source
@@ -88,14 +83,6 @@ class SavedStocksTableViewController: UITableViewController {
 
 }
 
-extension SavedStocksTableViewController : UISearchResultsUpdating{
-    func updateSearchResults(for searchController: UISearchController) {
-        let bar = searchController.searchBar.text
-        //MARK: TODO:
-        print(bar!)
-    }
-}
-
 // MARK: CoreData fetch
 extension SavedStocksTableViewController : NSFetchedResultsControllerDelegate {
     func fetchSavedStocks() {
@@ -103,7 +90,7 @@ extension SavedStocksTableViewController : NSFetchedResultsControllerDelegate {
           let fetchRequest: NSFetchRequest<Stock> = Stock.fetchRequest()
           let sortDescriptor = NSSortDescriptor(key: "category", ascending: false)
           fetchRequest.sortDescriptors = [sortDescriptor]
-        //fetchRequest.predicate = NSPredicate(format: "category == Watch List")
+
           let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
             managedObjectContext: context,

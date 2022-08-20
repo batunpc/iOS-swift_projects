@@ -18,7 +18,6 @@ struct ServiceManager {
     // MARK: Finance API - autocomplete
     static func createRequest(route: Route,method: Method,
                               completion: @escaping (Result<[CompanyDetail]?, StocksError>) -> Void) -> URLRequest? {
-        
         let urlString = Route.autoCompleteBaseURL + route.description /// concataneted URL
         guard let url = URL(string: urlString) else { return nil }
         let urlRequest = NSMutableURLRequest(url: url,cachePolicy: .useProtocolCachePolicy,
@@ -49,10 +48,7 @@ struct ServiceManager {
     // MARK: Finance API - GET realtime price
     static func getStockPrice(route: Route,method: Method,
                               completion: @escaping (Result<String, Error>) -> Void) -> URLRequest? {
-        
-        //let urlString = Route.autoCompleteBaseURL + route.description /// concataneted URL
         let urlString = Route.priceBaseURL + route.description
-        print(urlString)
         guard let url = URL(string: urlString) else { return nil }
         let urlRequest = NSMutableURLRequest(url: url,cachePolicy: .useProtocolCachePolicy,
                                              timeoutInterval: 10.0)
@@ -76,6 +72,33 @@ struct ServiceManager {
         }
         return urlRequest as URLRequest
     }
-
     
+    //MARK: News API - GET news titles
+    static func getNewsTitle(route: Route,method: Method,
+                              completion: @escaping (Result<[NewsResponse], Error>) -> Void) -> URLRequest? {
+        
+        let urlString = Route.newsBaseURL + route.description
+        guard let url = URL(string: urlString) else { return nil }
+        let urlRequest = NSMutableURLRequest(url: url,cachePolicy: .useProtocolCachePolicy,
+                                             timeoutInterval: 10.0)
+        urlRequest.httpMethod = method.rawValue
+        urlRequest.allHTTPHeaderFields = headers /// set the header
+        
+        switch method {
+        case .get:
+            URLSession.shared.dataTask(with: urlRequest as URLRequest, completionHandler: { data, response, error -> Void in
+                guard let jsonData = data else { print(error!.localizedDescription)
+                    return
+                }
+                do {
+                    let decodedData = try JSONDecoder().decode([NewsResponse].self, from: jsonData)
+                    let news = decodedData
+                    completion(.success(news))
+                }catch{
+                    print(error)
+                }
+            }).resume()
+        }
+        return urlRequest as URLRequest
+    }
 }
