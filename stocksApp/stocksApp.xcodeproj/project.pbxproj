@@ -25,6 +25,7 @@
 		4705F02828B08B9F00705119 /* StockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F02728B08B9F00705119 /* StockTableViewCell.swift */; };
 		4705F03728B0BE2D00705119 /* Stock+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F03528B0BE2D00705119 /* Stock+CoreDataClass.swift */; };
 		4705F03828B0BE2D00705119 /* Stock+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F03628B0BE2D00705119 /* Stock+CoreDataProperties.swift */; };
+		4705F03A28B0DAF100705119 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F03928B0DAF100705119 /* NewsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		4705F02728B08B9F00705119 /* StockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTableViewCell.swift; sourceTree = "<group>"; };
 		4705F03528B0BE2D00705119 /* Stock+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stock+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4705F03628B0BE2D00705119 /* Stock+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stock+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4705F03928B0DAF100705119 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				4705F01428B03F3500705119 /* SavedStocksTableViewController.swift */,
 				4705F00328AF067E00705119 /* SearchStockViewController.swift */,
 				4705F00128AF03C300705119 /* AddStockTableViewController.swift */,
+				4705F03928B0DAF100705119 /* NewsTableViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 				4705F01B28B04EDB00705119 /* StockModel.swift in Sources */,
 				4705F00F28AF505700705119 /* protocols.swift in Sources */,
 				4705F00628AF0EDD00705119 /* ServiceManager.swift in Sources */,
+				4705F03A28B0DAF100705119 /* NewsTableViewController.swift in Sources */,
 				4705F03728B0BE2D00705119 /* Stock+CoreDataClass.swift in Sources */,
 				4705F00228AF03C300705119 /* AddStockTableViewController.swift in Sources */,
 				4705F03828B0BE2D00705119 /* Stock+CoreDataProperties.swift in Sources */,

@@ -11,7 +11,7 @@ import CoreData
 class SearchStockViewController: UIViewController {
     
     var selectedCompany = ""
-    
+    var selectedCategory = ""
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
@@ -34,7 +34,9 @@ class SearchStockViewController: UIViewController {
         searchController.searchResultsUpdater = self
         definesPresentationContext = true
         navigationItem.searchController = searchController
+        selectedCategory = "Active"
     }
+    
     //Autofocus on searchbar
     override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.main.async {
@@ -43,12 +45,14 @@ class SearchStockViewController: UIViewController {
     }
     
     @IBAction func selectedPortion(_ sender: UISegmentedControl) {
-        //category NSManagedObject
+    
         switch segmentedControl.selectedSegmentIndex {
         case 0 :
-            print("Active selected")
+            selectedCategory = "Active"
+            
         case 1 :
-            print("Watch List selected")
+            selectedCategory = "Watch List"
+            //print("Watch List selected")
             // save the data
         default:
             break
@@ -69,6 +73,7 @@ class SearchStockViewController: UIViewController {
             case.failure(let error):
                 print(error.localizedDescription)
             case.success(let lastPrice):
+                stock.category = self.selectedCategory
                 stock.companyName = self.selectedCompany
                 stock.lastPrice = Double(lastPrice) ?? 0
                 try? self.context.save() // save the data
@@ -77,8 +82,9 @@ class SearchStockViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             }
             
-            print("\(self.selectedCompany) has been saved.")
+            print("\(self.selectedCompany) has been saved into \(self.selectedCategory) category")
         }
+        
     }
 }
 

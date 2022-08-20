@@ -21,12 +21,21 @@ class SavedStocksTableViewController: UITableViewController {
         definesPresentationContext = true
         //fetchSavedStocks()
         self.fetchSavedStocks()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.fetchSavedStocks()
         tableView.reloadData()
+    }
+    @IBAction func editBtnPressed(_ sender: UIBarButtonItem) {
+        if tableView.isEditing{
+            tableView.isEditing = false
+        }else{
+            tableView.isEditing = true
+        }
+        
     }
     
 
@@ -37,7 +46,15 @@ class SavedStocksTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stockFetchedResultsController.sections?[section].numberOfObjects ?? 0
+       // return stockFetchedResultsController.sections?[section].numberOfObjects ?? 0
+        if let sections = stockFetchedResultsController.sections{
+            return sections[section].numberOfObjects
+        }
+        return 0
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return stockFetchedResultsController.sections?[section].name
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -47,11 +64,28 @@ class SavedStocksTableViewController: UITableViewController {
         cell.lastPriceLbl.text = String(stock.lastPrice)
         return cell
     }
-    //MARK: TODO
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        //return stockFetchedResultsController.sections?[section].name
-//        return categoryFetchedResultsController.sections?[section].name
-//    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            let deletedCity = self.stockFetchedResultsController.object(at: indexPath)
+            self.context.delete(deletedCity)
+            try? self.context.save()
+        }
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        var objects = stockFetchedResultsController.fetchedObjects!
+        let object = stockFetchedResultsController.object(at: sourceIndexPath)
+        objects.remove(at: sourceIndexPath.row)
+        objects.insert(object, at: destinationIndexPath.row)
+        tableView.reloadData()
+        try? self.context.save()
+    }
+
 }
 
 extension SavedStocksTableViewController : UISearchResultsUpdating{
@@ -67,12 +101,13 @@ extension SavedStocksTableViewController : NSFetchedResultsControllerDelegate {
     func fetchSavedStocks() {
          self.stockFetchedResultsController = {
           let fetchRequest: NSFetchRequest<Stock> = Stock.fetchRequest()
-          let sortDescriptor = NSSortDescriptor(key: "companyName", ascending: false)
+          let sortDescriptor = NSSortDescriptor(key: "category", ascending: false)
           fetchRequest.sortDescriptors = [sortDescriptor]
+        //fetchRequest.predicate = NSPredicate(format: "category == Watch List")
           let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
             managedObjectContext: context,
-            sectionNameKeyPath: "companyName",
+            sectionNameKeyPath: "category",
             cacheName: nil)
               do {
                   try fetchedResultsController.performFetch()
@@ -86,6 +121,46 @@ extension SavedStocksTableViewController : NSFetchedResultsControllerDelegate {
             try stockFetchedResultsController.performFetch()
         } catch {
             print(error.localizedDescription)
+        }
+    }
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .fade)
+        case .move:
+            tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        @unknown default:
+            fatalError("Error")
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange sectionInfo: NSFetchedResultsSectionInfo,
+                    atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        let indexSet = IndexSet(integer: sectionIndex)
+        
+        switch type {
+        case .insert:
+            tableView.insertSections(indexSet, with: .fade)
+        case .delete:
+            tableView.deleteSections(indexSet, with: .fade)
+        case .move, .update:
+            fatalError("Error")
+        @unknown default:
+            fatalError("Error")
         }
     }
 }
