@@ -9,10 +9,11 @@ import Foundation
 
 
 struct NewsResponse : Codable {
-    //let id : String
-    //let sourceId :String
-    //let sourceName :String
-    //let providerName: String
+    let id : String
+    let sourceId :String
+    let sourceName :String
+    let providerName: String
     let title: String
-    //let publishedDate : String
+    let publishedDate : String
 }
+

@@ -26,6 +26,8 @@
 		4705F03C28B0DB5900705119 /* NewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F03B28B0DB5900705119 /* NewsResponse.swift */; };
 		4705F04128B1006D00705119 /* Stock+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F03F28B1006D00705119 /* Stock+CoreDataClass.swift */; };
 		4705F04228B1006D00705119 /* Stock+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4705F04028B1006D00705119 /* Stock+CoreDataProperties.swift */; };
+		4713BD0628B17326006BFC5E /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4713BD0528B17326006BFC5E /* NewsTableViewController.swift */; };
+		4713BD0A28B1771B006BFC5E /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4713BD0928B1771B006BFC5E /* NewsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		4705F03B28B0DB5900705119 /* NewsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsResponse.swift; sourceTree = "<group>"; };
 		4705F03F28B1006D00705119 /* Stock+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stock+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4705F04028B1006D00705119 /* Stock+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stock+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4713BD0528B17326006BFC5E /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
+		4713BD0928B1771B006BFC5E /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +130,7 @@
 				4705F01428B03F3500705119 /* SavedStocksTableViewController.swift */,
 				4705F00328AF067E00705119 /* SearchStockViewController.swift */,
 				4705F00128AF03C300705119 /* AddStockTableViewController.swift */,
+				4713BD0528B17326006BFC5E /* NewsTableViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				4705F02728B08B9F00705119 /* StockTableViewCell.swift */,
+				4713BD0928B1771B006BFC5E /* NewsTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -212,10 +218,12 @@
 				4705F00C28AF41AD00705119 /* Method.swift in Sources */,
 				4705F04228B1006D00705119 /* Stock+CoreDataProperties.swift in Sources */,
 				4705F01528B03F3500705119 /* SavedStocksTableViewController.swift in Sources */,
+				4713BD0628B17326006BFC5E /* NewsTableViewController.swift in Sources */,
 				4705F00A28AF410300705119 /* Route.swift in Sources */,
 				4705EFEB28AEF8D600705119 /* AppDelegate.swift in Sources */,
 				4705F01128AF5D9B00705119 /* StockResponse.swift in Sources */,
 				4705F03C28B0DB5900705119 /* NewsResponse.swift in Sources */,
+				4713BD0A28B1771B006BFC5E /* NewsTableViewCell.swift in Sources */,
 				4705EFF528AEF8D600705119 /* stocksApp.xcdatamodeld in Sources */,
 				4705F00428AF067E00705119 /* SearchStockViewController.swift in Sources */,
 				4705EFED28AEF8D600705119 /* SceneDelegate.swift in Sources */,

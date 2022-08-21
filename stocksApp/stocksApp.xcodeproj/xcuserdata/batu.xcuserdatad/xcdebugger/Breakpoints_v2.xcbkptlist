@@ -46,8 +46,8 @@
             filePath = "stocksApp/Networking/ServiceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "getStockPrice(route:method:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "stocksApp/Networking/ServiceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "getStockPrice(route:method:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "stocksApp/Networking/ServiceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "getStockPrice(route:method:completion:)"
             landmarkType = "7">
             <Locations>
@@ -126,8 +126,8 @@
             filePath = "stocksApp/Networking/ServiceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "getStockPrice(route:method:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -136,6 +136,22 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B4329EE9-D2D3-4D5E-B4B3-4B88AD28658F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "stocksApp/Networking/ServiceManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "getStockPrice(route:method:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "00E906A3-F30A-4206-8C8E-907358D1D315"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -151,7 +167,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "00E906A3-F30A-4206-8C8E-907358D1D315"
+            uuid = "3B95DB96-E226-478D-808F-D0071DDF7CA5"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -167,161 +183,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3B95DB96-E226-478D-808F-D0071DDF7CA5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "stocksApp/Networking/ServiceManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "getStockPrice(route:method:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "ECBE25E1-2437-4555-8C45-C88B867A55F0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "stocksApp/VC/NewsTableViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
-            landmarkName = "NewsTableViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "ECBE25E1-2437-4555-8C45-C88B867A55F0 - c6151b92882bf00f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "stocksApp.NewsTableViewController.performanceID.getter : Swift.Array&lt;Swift.String&gt;"
-                  moduleName = "stocksApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/batu/Desktop/iOS_projects/stocksApp/stocksApp/VC/NewsTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "144">
-               </Location>
-               <Location
-                  uuid = "ECBE25E1-2437-4555-8C45-C88B867A55F0 - e0b899a081158403"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "stocksApp.NewsTableViewController.performanceID.setter : Swift.Array&lt;Swift.String&gt;"
-                  moduleName = "stocksApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/batu/Desktop/iOS_projects/stocksApp/stocksApp/VC/NewsTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "108">
-               </Location>
-               <Location
-                  uuid = "ECBE25E1-2437-4555-8C45-C88B867A55F0 - 267952834e0aa732"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "stocksApp.NewsTableViewController.performanceID.modify : Swift.Array&lt;Swift.String&gt;"
-                  moduleName = "stocksApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/batu/Desktop/iOS_projects/stocksApp/stocksApp/VC/NewsTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "0">
-               </Location>
-               <Location
-                  uuid = "ECBE25E1-2437-4555-8C45-C88B867A55F0 - 2a66838882cf1d95"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "stocksApp.NewsTableViewController.performanceID.modify : Swift.Array&lt;Swift.String&gt; with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "stocksApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/batu/Desktop/iOS_projects/stocksApp/stocksApp/VC/NewsTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  uuid = "ECBE25E1-2437-4555-8C45-C88B867A55F0 - a3db909ca0b07d7c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "stocksApp.NewsTableViewController.init(style: __C.UITableViewStyle) -&gt; stocksApp.NewsTableViewController"
-                  moduleName = "stocksApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/batu/Desktop/iOS_projects/stocksApp/stocksApp/VC/NewsTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "64">
-               </Location>
-               <Location
-                  uuid = "ECBE25E1-2437-4555-8C45-C88B867A55F0 - 15251f653ceda236"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "stocksApp.NewsTableViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; stocksApp.NewsTableViewController"
-                  moduleName = "stocksApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/batu/Desktop/iOS_projects/stocksApp/stocksApp/VC/NewsTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "88">
-               </Location>
-               <Location
-                  uuid = "ECBE25E1-2437-4555-8C45-C88B867A55F0 - 5858fb2a0a90b663"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "stocksApp.NewsTableViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;stocksApp.NewsTableViewController&gt;"
-                  moduleName = "stocksApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/batu/Desktop/iOS_projects/stocksApp/stocksApp/VC/NewsTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "09A46521-3B78-4583-AB7F-96F3B3905987"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "stocksApp/Networking/ServiceManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "getNewsTitle(route:method:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "06762C25-24C1-4151-86DD-C9013A881FB3"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -329,8 +190,8 @@
             filePath = "stocksApp/Networking/ServiceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "getNewsTitle(route:method:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -339,38 +200,6 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F466B0BE-01FE-41AB-BE4A-A5EAEB077CF6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "stocksApp/Networking/ServiceManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "getNewsTitle(route:method:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BAEC5650-45DF-467D-A1AA-9D2F91DFB6C8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "stocksApp/Networking/ServiceManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "getNewsTitle(route:method:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C88CB73B-ABB4-464F-88EF-F36BD8E6D55A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -393,8 +222,8 @@
             filePath = "stocksApp/Networking/ServiceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "getNewsTitle(route:method:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -402,15 +231,31 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FD54FE29-557A-41E6-A58D-1F93AA5D9D60"
+            uuid = "88A8F956-3903-4E7A-816C-35879B379DD3"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "stocksApp/Networking/ServiceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "getNewsTitle(route:method:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "19E63A2B-AB54-4FA4-8D3F-DE0CDBFD18B6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "stocksApp/Networking/ServiceManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "getNewsTitle(route:method:completion:)"
             landmarkType = "7">
          </BreakpointContent>

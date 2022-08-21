@@ -34,7 +34,6 @@ struct ServiceManager {
                 do {
                     let stockResults = try JSONDecoder().decode(StockResponse.self, from: jsonData)
                     let companyDetail = stockResults.results /// array of stocks
-                    //print(stockResults.results)
                     completion(.success(companyDetail))
                 }catch{
                     completion(.failure(.dataFormatInvalid))
@@ -75,7 +74,7 @@ struct ServiceManager {
     
     //MARK: News API - GET news titles
     static func getNewsTitle(route: Route,method: Method,
-                              completion: @escaping (Result<[NewsResponse], Error>) -> Void) -> URLRequest? {
+                              completion: @escaping ([NewsResponse]) -> ()) -> URLRequest? {
         
         let urlString = Route.newsBaseURL + route.description
         guard let url = URL(string: urlString) else { return nil }
@@ -92,10 +91,9 @@ struct ServiceManager {
                 }
                 do {
                     let decodedData = try JSONDecoder().decode([NewsResponse].self, from: jsonData)
-                    let news = decodedData
-                    completion(.success(news))
+                    completion(decodedData)
                 }catch{
-                    print(error)
+                    print(error.localizedDescription)
                 }
             }).resume()
         }
